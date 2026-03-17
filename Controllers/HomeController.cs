@@ -1,15 +1,60 @@
 using System.Diagnostics;
+using GerenciamentoFinanceiroCurso.Data;
 using GerenciamentoFinanceiroCurso.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenciamentoFinanceiroCurso.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        private readonly AppDbContext _context;
 
+        public HomeController(AppDbContext context)
+        {
+            _context = context;
+        }
+        public IActionResult Index(string id)
+        {
+            var filtros = new Filtros(id);
+
+            ViewBag.Filtros = filtros;
+            ViewBag.Categorias = _context.Categorias.ToList();
+            ViewBag.Transacoes = _context.Transacoes.ToList();
+
+            IQueryable<Financeiro> consulta = _context.Financeiros
+                                                       .Include(c => c.Categoria)
+                                                       .Include(c => c.Transacao);
+
+            if (filtros.TemCategoria)
+            {
+                consulta = consulta.Where(c => c.CategoriaId == filtros.CategoriaId);
+            }
+
+            if (filtros.TemTransacao)
+            {
+                consulta = consulta.Where(c => c.TransacaoId == filtros.TransacaoId);
+            }
+
+            if (filtros.TemDataOperacao)
+            {
+                var Hoje = DateTime.Today;
+
+                if (filtros.EPassado)
+                {
+                    consulta = consulta.Where(c => c.DataDaOperacao < Hoje);
+                }
+                else if (filtros.EHoje)
+                {
+                    consulta = consulta.Where(c => c.DataDaOperacao == Hoje);
+                }
+                else if (filtros.EFuturo)
+                {
+                    consulta = consulta.Where(c => c.DataDaOperacao > Hoje);
+                }
+            }
+            var financeiros = consulta.OrderBy(d => d.DataDaOperacao).ToList();
+            return View(financeiros);
+        }
     }
 }
