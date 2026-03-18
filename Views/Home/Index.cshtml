@@ -16,10 +16,18 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Categoria:</label>
+            <label class="form-label">Data da Operação:</label>
             <select name="filtro"
                     class="form-select"
                     asp-items="@(new SelectList(ViewBag.DataOperacao, "Key", "Value", ViewBag.Filtros.DataOperacao))">
+                <option value="todos">Todos</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Transações:</label>
+            <select name="filtro"
+                    class="form-select"
+                    asp-items="@(new SelectList(ViewBag.Transacoes, "TransacaoId", "Nome", ViewBag.Filtros.TransacaoId))">
                 <option value="todos">Todos</option>
             </select>
         </div>

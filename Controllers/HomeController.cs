@@ -21,6 +21,7 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             ViewBag.Filtros = filtros;
             ViewBag.Categorias = _context.Categorias.ToList();
             ViewBag.Transacoes = _context.Transacoes.ToList();
+            ViewBag.DataOperacao = Filtros.ValoresDataOperacao;
 
             IQueryable<Financeiro> consulta = _context.Financeiros
                                                        .Include(c => c.Categoria)
