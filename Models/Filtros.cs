@@ -5,7 +5,7 @@
         public Filtros(string filtrostring)
         {
             FiltroString = filtrostring ?? "todos-todos-todos";
-            string[] filtros = filtrostring.Split("-");
+            string[] filtros = FiltroString.Split('-');
 
             CategoriaId = filtros[0];
             TransacaoId = filtros[1];
@@ -15,6 +15,14 @@
         public string CategoriaId { get; set; }
         public string TransacaoId { get; set; }
         public string DataOperacao { get; set; }
+
+        public static Dictionary<string, string> ValoresDataOperacao =>
+            new Dictionary<string, string>
+        {
+            { "passado", "Passado" },
+            { "futuro", "Futuro" },
+            { "hoje", "Hoje" }
+        };
 
         public bool TemCategoria => CategoriaId != "todos";
         public bool TemTransacao => TransacaoId != "todos";
