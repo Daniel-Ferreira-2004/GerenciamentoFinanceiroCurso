@@ -32,6 +32,7 @@
                     <option value="todos">Todos</option>
                 </select>
             </div>
+
             <button class="btn btn-primary w-100 mb-2">Filtrar</button>
             <a asp-action="Index" asp-route-id="" class="btn btn-primary w-100">Limpar</a>
         </form>
@@ -55,7 +56,7 @@
                         <td>@financa.Descricao</td>
                         <td>@financa.Categoria.Nome</td>
                         <td>@financa.DataDaOperacao.ToString("dd/MM/yyyy")</td>
-                        @if (financa.Transacao.Nome == "Ganho")
+                        @if (financa.Transacao.Nome == "Ganhou")
                         {
                             <td style="color:green; font-weight:bold">@financa.Transacao.Nome</td>
                         }

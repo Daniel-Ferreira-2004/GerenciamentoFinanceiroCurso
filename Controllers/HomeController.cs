@@ -57,5 +57,12 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             var financeiros = consulta.OrderBy(d => d.DataDaOperacao).ToList();
             return View(financeiros);
         }
+
+        [HttpPost]
+        public IActionResult Filtrar(string[] filtro)
+        {
+            string id = string.Join("-", filtro);
+            return RedirectToAction("Index", new { ID = id });
+        }
     }
 }
