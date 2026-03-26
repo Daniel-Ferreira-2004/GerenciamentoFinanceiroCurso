@@ -1,0 +1,32 @@
+﻿<h2>Planejamento Financeiro</h2>
+
+<form>
+    <div class="mb-3">
+        <label class="form-label">Descrição:</label>
+        <input class="form-control" type="text" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Valor (R$)</label>
+        <input class="form-control" type="number" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Categoria:</label>
+        <select class="form-select" asp-items="@(new SelectList(ViewBag.Categoria, "CategoriaId", "Nome"))">
+            <option value=""></option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Data da Operação)</label>
+        <input class="form-control" type="date" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Transações:</label>
+        <select class="form-select" asp-items="@(new SelectList(ViewBag.Transacoes, "TransacaoId", "Nome"))">
+            <option value=""></option>
+        </select>
+    </div>
+</form>  

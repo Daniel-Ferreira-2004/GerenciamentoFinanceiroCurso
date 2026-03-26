@@ -58,6 +58,12 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             return View(financeiros);
         }
 
+        public IActionResult AdicionarTransacao()
+        {
+            ViewBag.Categoria = _context.Categorias.ToList();
+            ViewBag.Transacoes = _context.Transacoes.ToList();
+            return View();
+        }
         [HttpPost]
         public IActionResult Filtrar(string[] filtro)
         {
