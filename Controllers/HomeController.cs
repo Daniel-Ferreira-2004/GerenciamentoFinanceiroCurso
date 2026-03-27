@@ -64,7 +64,12 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             ViewBag.Transacoes = _context.Transacoes.ToList();
             return View();
         }
+        public IActionResult AdicionarCategoria()
+        {
+            var categoria = new Categoria { CategoriaId = "categoria" };
 
+            return View(categoria);
+        }
         public IActionResult RemoverTransacao(int id)
         {
             var financa = _context.Financeiros.Find(id);
@@ -72,6 +77,8 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
         [HttpPost]
         public IActionResult Filtrar(string[] filtro)
         {
@@ -92,7 +99,29 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             {
                 ViewBag.Categoria = _context.Categorias.ToList();
                 ViewBag.Transacoes = _context.Transacoes.ToList();
-                return View(financeiro) ;
+                return View(financeiro);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AdicionarCategoria(Categoria categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                var categoriaBanco = new Categoria
+                {
+                    CategoriaId = categoria.Nome.ToLower(),
+                    Nome = categoria.Nome
+                };
+
+                _context.Categorias.Add(categoriaBanco);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(categoria);
             }
         }
     }
