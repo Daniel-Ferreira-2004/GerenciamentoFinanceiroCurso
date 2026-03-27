@@ -1,32 +1,40 @@
-﻿<h2>Planejamento Financeiro</h2>
+﻿@model Financeiro
+<div asp-validation-summary="All" class="text-danger"></div>
 
-<form>
+<h2>Planejamento Financeiro</h2>
+
+<form asp-controller=Home asp-action="AdicionarTransacao" method="post">
+
     <div class="mb-3">
         <label class="form-label">Descrição:</label>
-        <input class="form-control" type="text" />
+        <input class="form-control" type="text" asp-for="Descricao"/>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Valor (R$)</label>
-        <input class="form-control" type="number" />
+        <input class="form-control" type="number" asp-for="Valor"/>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Categoria:</label>
-        <select class="form-select" asp-items="@(new SelectList(ViewBag.Categoria, "CategoriaId", "Nome"))">
+        <select asp-for="CategoriaId" class="form-select" asp-items="@(new SelectList(ViewBag.Categoria, "CategoriaId", "Nome"))">
             <option value=""></option>
         </select>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Data da Operação)</label>
-        <input class="form-control" type="date" />
+        <input class="form-control" type="date" asp-for="DataDaOperacao"/>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Transações:</label>
-        <select class="form-select" asp-items="@(new SelectList(ViewBag.Transacoes, "TransacaoId", "Nome"))">
+        <select asp-for="TransacaoId" class="form-select" asp-items="@(new SelectList(ViewBag.Transacoes, "TransacaoId", "Nome"))">
             <option value=""></option>
         </select>
     </div>
+
+    <button class="btn btn-success w-100 mb-2" type="submit">Cadastrar</button>
+    <a asp-action="index" class="btn btn-danger w-100" hre">Cancelar</a>
+
 </form>  
