@@ -64,6 +64,14 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             ViewBag.Transacoes = _context.Transacoes.ToList();
             return View();
         }
+
+        public IActionResult RemoverTransacao(int id)
+        {
+            var financa = _context.Financeiros.Find(id);
+            _context.Remove(financa);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
         [HttpPost]
         public IActionResult Filtrar(string[] filtro)
         {
