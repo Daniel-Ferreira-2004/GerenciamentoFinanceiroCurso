@@ -116,10 +116,11 @@ namespace GerenciamentoFinanceiroCurso.Controllers
                     TransacaoNome = resultado.TransacaoNome,
                     DataOperacao = resultado.DataOperacao.ToString("dd/MM/yyyy"),
                     ValorCategoria = resultado.total.ToString("F"),
-                    Ganhos = resultado.total.ToString("F"),
-                    Gastos = resultado.total.ToString("F"),
+                    Ganhos = ganhos.ToString("F"),
+                    Gastos = gastos.ToString("F"),
                     Diferenca = resultado.total.ToString("F"),
                 };
+
                 registros.Add(registro);
             }
             return View(registros);
