@@ -5,7 +5,9 @@ Aplicação web desenvolvida com **ASP.NET Core MVC** para controle de **ganhos 
 
 Este projeto foi criado com o objetivo de **praticar desenvolvimento backend com .NET**, estruturação de aplicações no padrão **MVC** e manipulação de dados com **Entity Framework Core**.
 
----
+## Demonstração
+
+![Demonstração do sistema](images/PlanejamentoFinanceiroCurso.gif)
 
 ## 📌 Funcionalidades
 
