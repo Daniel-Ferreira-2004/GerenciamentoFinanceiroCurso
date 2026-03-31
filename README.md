@@ -7,7 +7,7 @@ Este projeto foi criado com o objetivo de **praticar desenvolvimento backend com
 
 ## Demonstração
 
-![Demonstração do sistema](images/PlanejamentoFinanceiroCurso.gif)
+![Demonstração do sistema](img/PlanejamentoFinanceiroCurso.gif)
 
 ## 📌 Funcionalidades
 
