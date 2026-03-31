@@ -77,7 +77,53 @@ namespace GerenciamentoFinanceiroCurso.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult SomatoriaValores()
+        {
+            var resultados = from g in _context.Financeiros
+                                    .Include(x => x.Categoria)
+                                    .Include(x => x.Transacao)
+                                    .ToList()
+                            group g by new { g.CategoriaId } into total
+                            select new
+                            {
+                                CategoriaNome = total.First().Categoria.Nome,
+                                TransacaoNome = total.First().Transacao.Nome,
+                                DataOperacao = total.First().DataDaOperacao,
+                                total = total.Sum(c => c.Valor)
+                            };
 
+            var ganhos = _context.Financeiros
+               .Include(x => x.Categoria)
+               .Include(x => x.Transacao)
+               .Where(x => x.TransacaoId == "ganho")
+               .Sum(x => x.Valor);
+
+            var gastos = _context.Financeiros
+                    .Include(x => x.Categoria)
+                    .Include(x => x.Transacao)
+                    .Where(x => x.TransacaoId == "gasto")
+                    .Sum(x => x.Valor);
+
+            var diferenca = ganhos - gastos;
+
+            List<RegistroFinanceiro> registros = new List<RegistroFinanceiro>();
+
+            foreach (var resultado in resultados)
+            {
+                var registro = new RegistroFinanceiro()
+                {
+                    CategoriaNome = resultado.CategoriaNome,
+                    TransacaoNome = resultado.TransacaoNome,
+                    DataOperacao = resultado.DataOperacao.ToString("dd/MM/yyyy"),
+                    ValorCategoria = resultado.total.ToString("F"),
+                    Ganhos = resultado.total.ToString("F"),
+                    Gastos = resultado.total.ToString("F"),
+                    Diferenca = resultado.total.ToString("F"),
+                };
+                registros.Add(registro);
+            }
+            return View(registros);
+        }
 
         [HttpPost]
         public IActionResult Filtrar(string[] filtro)
